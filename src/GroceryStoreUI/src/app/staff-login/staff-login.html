@@ -1,0 +1,35 @@
+<!-- Container that centers the Login card on the page -->
+<div class="login-container">
+
+  <!-- Login card containing the staff authentication form -->
+  <div class="login-card">
+      <h2>Login Page</h2>
+
+    <!-- Username input bound to the username property -->
+    <!-- Two-way data binding, if the user types in admin, automatically username = 'admin'-->
+    <!-- We never read the textbox -->
+      <input
+        type="text"
+        [(ngModel)]="username"
+        placeholder="Username">
+
+    <!-- Password input bound to password property -->
+    <!-- same two-way data binding here -->
+      <input
+        type="password"
+        [(ngModel)]="password"
+        placeholder="Password">
+
+    <!-- Calls the Login() method when clicked -->
+    <!-- this is event-binding, checks username/password and naviagtes to /staff -->
+      <button type="button" (click)="login()">
+        Sign In
+      </button>
+
+    <!-- Displays when the login credentials are not valid -->
+      <p class="error" *ngIf="loginError">
+        Invalid username or password.
+      </p>
+
+  </div>
+</div>

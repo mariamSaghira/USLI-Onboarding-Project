@@ -1,0 +1,76 @@
+
+/* Removes the browser's default margin and sets the font for the page */
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Centers the login card and applies the background gradient */
+.login-container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
+}
+
+/* Styles the white login card */
+.login-card {
+  background: white;
+  padding: 40px;
+  border-radius: 18px;
+  width: 380px;
+  text-align: center;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+}
+
+/* Styles the login page heading */
+.login-card h2 {
+  color: #4b2aad;
+  margin-bottom: 25px;
+}
+
+/* Styles the username and password input fields */
+.login-card input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 18px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+/* Highlights the input field when it is selected */
+.login-card input:focus {
+  outline: none;
+  border-color: #6a11cb;
+  box-shadow: 0 0 6px rgba(106,17,203,.3);
+}
+
+/* Styles the login buton */
+.login-card button {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: .2s;
+}
+
+/* Add a tiny jump when hovering over the button */
+.login-card button:hover {
+  transform: translateY(-2px);
+  opacity: .95;
+}
+
+/* Styles the error message displayed for invalid Login attempts */
+.error {
+  color: red;
+  margin-top: 15px;
+  font-weight: bold;
+}

@@ -1,0 +1,23 @@
+<!-- Home page displayed when the user first opens the application -->
+<div class="home-container" *ngIf="isHomePage">
+
+  <!-- Welcome card containing the navigation options -->
+  <div class="home-card">
+
+    <!-- Application title -->
+    <h1>Mariam's Grocery Store</h1>
+
+    <!-- Welcome message -->
+    <p>Welcome to Mariam's Grocery Store!</p>
+    <p>How would you like to continue?</p>
+
+    <!-- Navigates to the customer page -->
+    <button routerLink="/customer">Continue as Guest</button>
+
+    <!-- Navigates to the staff page -->
+    <button routerLink="/staff-login">Continue as Member</button>
+  </div>
+</div>
+
+<!-- Displays the currently selected route's component, so the URL changes accordngly -->
+<router-outlet></router-outlet>

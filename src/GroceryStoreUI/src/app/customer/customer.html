@@ -1,0 +1,149 @@
+<h1>Customer Page</h1>
+
+<!-- Main container for the customer page -->
+<div class="main-container">
+
+  <!-- Search bar for filtering products by name -->
+  <input *ngIf="showProducts"
+         type="text"
+         placeholder="Search Products..."
+         [(ngModel)]="searchText" />
+
+  <hr />
+
+  <!-- Navigation buttons -->
+  <div class="button-container">
+
+    <!-- Taggles between the product list and the shopping cart -->
+    <button type="button" (click)="viewCart()">
+      {{ showCart ? 'Back to Products' : 'View Cart' }}
+
+      <!-- Displays the number of items currently in the cart -->
+      <span *ngIf="!showCart && getCartItemCount() > 0"
+            class="cart-count">
+        {{ getCartItemCount() }}
+      </span>
+    </button>
+
+    <!-- Returns the user to the home page -->
+    <button type="button" (click)="exit()">
+      Exit
+    </button>
+  </div>
+
+  <hr />
+
+  <!-- Product inventory displayed to the customer -->
+  <div class="products-container" *ngIf="showProducts">
+
+    <!-- Header row for the inventory table -->
+    <div class="product-header">
+      <span>ID</span>
+      <span>Product</span>
+      <span>Category</span>
+      <span>Price</span>
+      <span>Quantity</span>
+      <span>Action</span>
+    </div>
+
+    <!-- Loops through each filtered product and displays its information -->
+    <div class="product-row" *ngFor="let product of getFilteredProducts()">
+      <span>{{ product.productID }}</span>
+      <span>{{ product.productName }}</span>
+      <span>{{ product.category }}</span>
+      <span>${{ product.price | number:'1.2-2' }}</span>
+      <span>{{ product.stockQuantity }}</span>
+
+      <!-- Add the selected product to the shopping cart -->
+      <button type="button"
+              (click)="addToCart(product)"
+              [disabled]="product.stockQuantity === 0">
+
+        <!-- if quantity = 0 the out of stock, else add to cart -->
+        {{ product.stockQuantity === 0 ? 'Out of Stock' : 'Add to Cart' }}
+      </button>
+    </div>
+  </div>
+
+  <!-- Shopping cart view -->
+  <div class="cart-container" *ngIf="showCart">
+    <h3>Shopping Cart</h3>
+
+    <!-- Displayed when no items have been added to the cart -->
+    <p *ngIf="cart.length === 0">
+      Your cart is empty.
+    </p>
+
+    <!-- Loops through and displays every item currently in the shopping cart -->
+    <div *ngFor="let item of cart" class="cart-row">
+      <span>{{ item.productName }}</span>
+      <span>Quantity: {{ item.quantity }}</span>
+      <span>Total: ${{ (item.price * item.quantity).toFixed(2) }}</span>
+
+      <!-- Removes the selected item from the shopping cart -->
+      <button type="button"
+              (click)="removeFromCart(item)">
+        Remove
+      </button>
+    </div>
+
+    <!-- Checkout button appears only when the cart contains items -->
+    <button *ngIf="cart.length > 0 && !checkoutMessage"
+            type="button"
+            class="checkout-button"
+            (click)="checkout()"
+            [disabled]="isProcessing">
+
+      <!-- Shows processing status while the order is being completed -->
+      {{ isProcessing ? 'Processing...' : 'Proceed to Checkout' }}
+
+    </button>
+  </div>
+
+  <!-- Receipt is outside of the cart-container -->
+  <!-- Receipt gets displayed after a successful checkout -->
+  <div *ngIf="showReceipt" class="receipt">
+    <h2>Receipt</h2>
+
+    <hr />
+
+    <!-- Displays each purchased item -->
+    <div *ngFor="let item of receiptItems"
+         class="receipt-row">
+
+      <span>{{ item.productName }}</span>
+      <span>Quantity: {{ item.quantity }}</span>
+      <span>
+        ${{ (item.price * item.quantity).toFixed(2) }}
+      </span>
+    </div>
+
+    <hr />
+
+    <!-- Displays the final total -->
+    <h3>
+      Total: ${{ receiptTotal.toFixed(2) }}
+    </h3>
+
+    <!-- Store name on the receipt-->
+    <p class="receipt-mariam">
+        Mariam's grocery store
+    </p>
+
+    <!-- Receipt date, current date is added automatically -->
+    <p class="receipt-date">
+      {{ receiptDate | date:'medium'}}
+    </p>
+  </div>
+
+  <!-- Checkout message is displayed after checkout -->
+  <div *ngIf="checkoutMessage" class="success-message ">
+    {{ checkoutMessage }}
+  </div>
+
+  <!-- Error message displayed if checkout fails -->
+  <div *ngIf="checkoutError" class="checkout-error">
+    {{ checkoutError }}
+  </div>
+
+</div>

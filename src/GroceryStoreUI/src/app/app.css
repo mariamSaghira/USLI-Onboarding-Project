@@ -1,0 +1,58 @@
+/* Styles the home page and centers the welcome card */
+.home-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #6D4CFF 0%, #4F46E5 45%, #2563EB 100%);
+  display: flex;
+  font-family: Arial, sans-serif;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  box-sizing: border-box;
+}
+
+/* Styles the welcome card displayed on the home page */
+.home-card {
+    background-color: white;
+    padding: 40px;
+    border-radius: 18px;
+    box-shadow: 0 12px 35px rgba(0,0, 0, 0.25);
+    text-align: center;
+    width:420px;
+}
+
+/* Stles the main heading */
+.home-card h1 {
+  margin-bottom: 20px;
+  color: #1e3a8a;
+}
+
+/* Styles the welcome text */
+.home-card p {
+  margin-bottom: 20px;
+}
+
+/* Styles the navigation buttons */
+.home-card button {
+  width: 100%;
+  padding: 16px;
+  border: none;
+  cursor: pointer;
+  margin-bottom: 20px;
+  color: #4b5563;
+  border-radius: 12px;
+
+  background-color: #2563eb;
+  color: white;
+  font-size: 17px;
+  font-weight: 500;
+
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Changes the button color when the mouse hovers over it */
+.home-card button:hover {
+  background-color: #1e40af;
+}
+

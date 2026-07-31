@@ -1,0 +1,112 @@
+<!-- Main container for the staff page --> 
+<div class="main-container">
+
+  <!-- Page heading -->
+  <h2>Staff Page</h2>
+
+  <!-- Allows the user to choose the Manager or Employee role -->
+  <div class="role-selector">
+    <label>Select Role:</label>
+
+    <select [(ngModel)]="selectedRoleId" (change)="onRoleChange()">
+      <option [ngValue]="Role.Manager">Manager</option>
+      <option [ngValue]="Role.Employee">Employee</option>
+    </select>
+  </div>
+
+  <!-- Search bar used to filter products by name, category and ID -->
+  <input type="text"
+         placeholder="Search inventory..."
+         [(ngModel)]="searchText" />
+
+  <!-- Form for adding a new product to the inventory -->
+  <div class="add-product-form" *ngIf="showAddForm">
+
+    <!-- Product information -->
+    <input [(ngModel)]="newProduct.productName" placeholder="Product Name" />
+
+    <select [(ngModel)]="newProduct.category">
+      <option value="" disabled> Select </option>
+      <option *ngFor="let category of categories" [value]="category">
+        {{ category }}
+      </option>
+    </select>
+
+    <input [(ngModel)]="newProduct.price" type="number" placeholder="Price">
+    <input [(ngModel)]="newProduct.stockQuantity" type="number" placeholder="Quantity">
+
+    <!-- Saves the product -->
+    <button (click)="addProducts()">Save Product</button>
+  </div>
+
+  <!-- Form for updating the existing product -->
+  <div class="update-product-form" *ngIf="showUpdateForm">
+    <!-- Select an existing product to load its information into the form -->
+    <select [(ngModel)]="updatedProduct.productID" (ngModelChange)="onSelectProductToUpdate($event)">
+      <option [ngValue]="0" disabled>Select Product</option>
+      <option *ngFor="let product of products" [ngValue]="product.productID">
+        {{ product.productName }}
+      </option>
+    </select>
+
+    <!-- Updated product information -->
+    <input [(ngModel)]="updatedProduct.productName" placeholder="New Product Name">
+
+    <select [(ngModel)]="updatedProduct.category">
+      <option value="" disabled>Select Category</option>
+      <option *ngFor="let category of categories" [value]="category">
+        {{ category }}
+      </option>
+    </select>
+
+    <input [(ngModel)]="updatedProduct.price" type="number" placeholder="Price">
+    <input [(ngModel)]="updatedProduct.stockQuantity" type="number" placeholder="Quantity">
+
+    <!-- Saves the updated product information -->
+    <button (click)="updateProducts()">Save Changes</button>
+  </div>
+
+  <!-- Form for deleting a product from the inventory -->
+  <div class="delete-product-form" *ngIf="showDeleteForm">
+    <input [(ngModel)]="deleteProductId" type="number" placeholder="Product ID">
+
+    <!-- Inventory management buttons -->
+    <button (click)="deleteProduct()">Confirm Delete</button>
+  </div>
+
+  <div class="button-container">
+
+    <!-- Opens the add product form -->
+    <button (click)="openAddForm()">Add Products</button>
+
+    <!-- Opens the update product form -->
+    <button (click)="openUpdateForm()">Update Products</button>
+
+    <!-- Delete option is available only to managers -->
+    <button *ngIf="selectedRoleId === Role.Manager"
+            (click)="openDeleteForm()">
+             Delete Product
+    </button>
+  </div>
+
+  <!-- Displays the current inventory -->
+  <div class="products-container">
+
+    <!-- Inventory table header -->
+    <div class="product-header">
+      <span>ID</span>
+      <span>Product</span>
+      <span>Category</span>
+      <span>Price</span>
+      <span>Quantity</span>
+   </div>
+
+    <!-- Displays each product that matches the search criteria -->
+   <div class="product-row" *ngFor="let product of getFilteredProducts()">
+     <span>{{ product.productID }}</span>
+     <span>{{ product.productName }}</span>
+     <span>{{ product.category }}</span>
+     <span>${{ product.price.toFixed(2) }}</span>
+     <span>{{ product.stockQuantity }}</span>
+   </div>
+</div>

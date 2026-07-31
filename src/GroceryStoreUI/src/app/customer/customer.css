@@ -1,0 +1,313 @@
+/*
+  customer.css
+  Styles for the Customer component (product list, cart, receipt and
+  checkout UI). Comments indicate purpose for each major block so other
+  developers can quickly understand the layout and visual intent.
+*/
+
+/* Page background and base typography */
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    /* subtle blue gradient for the overall page background */
+    background: linear-gradient(135deg,#1f4ed8, #2563eb);
+}
+
+.main-container {
+    /* Central white card containing the component UI */
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 25px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,.15);
+}
+
+h1 {
+    /* Page heading */
+    text-align: center;
+    color: #f8fafc;
+    margin-bottom: 25px;
+    font-size: 40px;
+
+}
+
+/* Search input styling used to filter products */
+input[type="text"] {
+    width: 300px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+.button-container button,
+.product-row button,
+.cart-row button {
+    /* Shared button base style for actions across the component */
+    background: #2563eb;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: .2s;
+    gap: 15px;
+}
+
+.button-container {
+    /* Layout for the top action buttons (view cart, exit) */
+    display: flex;
+    flex-direction: row;
+    gap: 200px;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.button-container button {
+    font-size: 20px;
+    margin: 0;
+    white-space: nowrap;
+}
+
+.button-container button:hover,
+.product-row button:hover,
+.cart-row button:hover {
+    /* Slightly darker on hover */
+    background: #1d4ed8;
+}
+
+.product-container,
+.cart-container {
+    /* Spacing above the product list and cart */
+    margin-top: 20px;
+}
+
+.product-header,
+.product-row,
+.cart-header,
+.cart-row {
+    /* Grid layout used by header and row items to align columns */
+    display: grid;
+    grid-template-columns: 70px 2fr 2fr  120px 120px 140px;
+    gap: 15px;
+    align-items: center;
+    padding: 12px;
+}
+
+.product-header,
+.cart-header {
+    /* Header row style for product and cart sections */
+    background: #1e40af;
+    color: white;
+    font-weight: bold;
+    border-radius: 8px 8px 0 0;
+    font-size: 20px;
+}
+
+.product-row,
+.cart-row {
+    /* Row separators for lists */
+    border-bottom: 1px solid #ccc;
+}
+
+.product-row:nth-child(even),
+.cart-row:nth-child(even) {
+    /* Zebra striping for easier scanning */
+    background: #f8fafc;
+}
+
+.checkout-message {
+    /* Success notification shown after a successful checkout */
+    margin: 20px 0;
+    padding: 15px;
+    background: #dcfce7;
+    border: 1px solid #22c55e;
+    color: #166534;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+:host {
+    /* Host element spacing for the standalone component */
+    display: block;
+    padding: 20px;
+}
+
+.main-container {
+    margin-bottom: 20px;
+}
+
+.products-container {
+    display: block;
+    margin-top: 20px;
+}
+
+.product-header,
+.product-row {
+    display: grid;
+    grid-template-columns: 70px 1fr 1fr 100px 100px 120px;
+    gap: 12px;
+    padding: 10px;
+    border-bottom,: 1px solid #ccc;
+    color: black;
+    background: white;
+}
+
+.product-header {
+    font-weight: bold;
+}
+
+.checkout-error {
+    /* Error notification shown when checkout or loading fails */
+    margin-top: 20px;
+    padding: 15px;
+    background: #fee2e2;
+    color: #991b1b;
+    border: 1px solid #ef4444;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+/* Disabled button state to indicate non-interactive controls */
+button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+
+.cart-count {
+  /* Small circular badge showing number of items in the cart */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 22px;
+  height: 22px;
+  margin-left: 8px;
+  padding: 0 6px;
+  border-radius: 50%;
+  background-color: white;
+  color: #5b2c83;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+
+.checkout-button {
+  /* Prominent CTA button for starting checkout */
+  display: block;
+  margin: 20px auto;
+  white-space: nowrap;
+  width: 220px;
+  padding: 12px 28px;
+  font-size: 16px;
+  text-align: center;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  color: white;
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.checkout-button:hover:not(:disabled) {
+  /* Hover effect lifts the button slightly to indicate interactivity */
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(37, 99, 235, 0.35);
+}
+
+
+.checkout-button:disabled {
+  /* Disabled appearance for the checkout CTA (e.g., while processing) */
+  background: #9ca3af;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+
+.receipt {
+  /* Receipt card shown after successful order placement */
+  max-width: 520px;
+  margin: 30px auto;
+  padding: 28px 32px;
+  background: #ffffff;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0,0,0,.12);
+}
+
+.receipt h2 {
+  margin: 0 0 10px;
+  text-align: center;
+  color: #2563eb;
+  font-size: 28px;
+}
+
+.receipt-subtitle {
+  margin-bottom: 20px;
+  text-align: center;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.receipt hr {
+  border: none;
+  border-top: 1px dashed #9ca3af;
+  margin: 16px 0;
+}
+
+.receipt-row {
+  /* Row layout inside the receipt showing name, qty and line total */
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 20px;
+  padding: 10px 0;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.receipt h3 {
+  text-align: right;
+  margin-top: 20px;
+}
+
+.receipt-row span:nth-child(2) {
+  text-align: center;
+}
+
+.receipt-row span:last-child {
+  text-align: right;
+}
+
+.receipt-total {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 18px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.receipt-mariam {
+  font-family: "Parisienne", cursive;
+  font-size: 14px;
+  margin-top: 25px;
+  color: #374151;
+  font-weight: 600;
+}
+
+.success-message {
+  /* message after checkout */
+  max-width: 520px;
+  margin: 20px auto;
+  padding: 12px;
+  background-color: #dcfce7;
+  color: #166534;
+  border: 1px solid #86efac;
+  border-radius: 8px;
+  text-align: center;
+  font-weight: bold;
+}
