@@ -1,0 +1,19 @@
+## .NET build output
+bin/
+obj/
+
+## Visual Studio
+.vs/
+*.user
+*.suo
+
+## Rider / others
+.idea/
+
+## Local settings that may contain secrets
+appsettings.Development.json
+appsettings.*.local.json
+
+## OS files
+Thumbs.db
+.DS_Store
